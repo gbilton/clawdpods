@@ -5,23 +5,23 @@ Run multiple isolated OpenClaw bots, each with its own configuration, credential
 ## Architecture
 
 Each bot runs as a separate Docker container with:
-- **Config directory**: `~/.openclaw-bots/<bot-name>/` - stores credentials, settings, session history
+- **Config directory**: `~/.clawdpods/<bot-name>/` - stores credentials, settings, session history
 - **Workspace directory**: `~/<bot-name>-workspace/` - files the bot can access
 
 ## Current Bots
 
 | Bot | Port | Config | Workspace |
 |-----|------|--------|-----------|
-| father-bot | 18799 | `~/.openclaw-bots/father-bot/` | `~/clawdpods/` |
-| fitness-bot | 18800 | `~/.openclaw-bots/fitness-bot/` | `~/fitness-workspace/` |
-| cb-bot | 18801 | `~/.openclaw-bots/cb-bot/` | `~/cb-workspace/` |
-| general-bot | 18802 | `~/.openclaw-bots/general-bot/` | `~/general-workspace/` |
+| father-bot | 18799 | `~/.clawdpods/father-bot/` | `~/clawdpods/` |
+| fitness-bot | 18800 | `~/.clawdpods/fitness-bot/` | `~/fitness-workspace/` |
+| cb-bot | 18801 | `~/.clawdpods/cb-bot/` | `~/cb-workspace/` |
+| general-bot | 18802 | `~/.clawdpods/general-bot/` | `~/general-workspace/` |
 
 ## Father Bot
 
 The `father-bot` is a special bot that can create other bots. It has access to:
 - `~/clawdpods/` - to edit docker-compose.yml
-- `~/.openclaw-bots/` - to create new bot config directories
+- `~/.clawdpods/` - to create new bot config directories
 - `~/` - to create new workspace directories
 
 Use `/new-bot <bot-name>` to create a new bot through father-bot.
@@ -53,9 +53,9 @@ docker build -t openclaw:local .
 ### 4. Create bot directories
 
 ```bash
-mkdir -p ~/.openclaw-bots/fitness-bot
-mkdir -p ~/.openclaw-bots/cb-bot
-mkdir -p ~/.openclaw-bots/general-bot
+mkdir -p ~/.clawdpods/fitness-bot
+mkdir -p ~/.clawdpods/cb-bot
+mkdir -p ~/.clawdpods/general-bot
 
 mkdir -p ~/fitness-workspace
 mkdir -p ~/cb-workspace
@@ -102,7 +102,7 @@ docker compose run --rm fitness-bot-cli pairing approve telegram XXXXXX
 ### 1. Create directories
 
 ```bash
-mkdir -p ~/.openclaw-bots/<bot-name>
+mkdir -p ~/.clawdpods/<bot-name>
 mkdir -p ~/<bot-name>-workspace
 ```
 
@@ -119,7 +119,7 @@ Add both gateway and CLI services. Choose an unused port (18803, 18804, etc.):
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.openclaw-bots/<bot-name>:/home/node/.openclaw:rw
+      - ~/.clawdpods/<bot-name>:/home/node/.openclaw:rw
       - ~/<bot-name>-workspace:/home/node/.openclaw/workspace:rw
     ports:
       - "<host-port>:18789"
@@ -134,7 +134,7 @@ Add both gateway and CLI services. Choose an unused port (18803, 18804, etc.):
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.openclaw-bots/<bot-name>:/home/node/.openclaw:rw
+      - ~/.clawdpods/<bot-name>:/home/node/.openclaw:rw
       - ~/<bot-name>-workspace:/home/node/.openclaw/workspace:rw
     stdin_open: true
     tty: true
@@ -188,7 +188,7 @@ docker exec <bot-name> cat /home/node/.openclaw/openclaw.json
 
 ## Configuration Persistence
 
-Configuration persists across container restarts because credentials and settings are stored on the host filesystem in `~/.openclaw-bots/<bot-name>/`, not inside the container.
+Configuration persists across container restarts because credentials and settings are stored on the host filesystem in `~/.clawdpods/<bot-name>/`, not inside the container.
 
 **What persists:**
 - OAuth tokens and credentials
@@ -224,7 +224,7 @@ volumes:
 ```
 
 ### Disable specific tools
-Add to `~/.openclaw-bots/<bot-name>/openclaw.json`:
+Add to `~/.clawdpods/<bot-name>/openclaw.json`:
 ```json
 {
   "agents": {

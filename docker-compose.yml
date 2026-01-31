@@ -7,9 +7,9 @@ services:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.openclaw-bots/father-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
-      - ~/.openclaw-bots:/home/node/bot-configs:rw
+      - ~/.clawdpods:/home/node/bot-configs:rw
       - ~:/home/node/host-home:rw
     ports:
       - "18799:18789"
@@ -24,9 +24,9 @@ services:
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.openclaw-bots/father-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
-      - ~/.openclaw-bots:/home/node/bot-configs:rw
+      - ~/.clawdpods:/home/node/bot-configs:rw
       - ~:/home/node/host-home:rw
     stdin_open: true
     tty: true
@@ -42,7 +42,7 @@ services:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.openclaw-bots/fitness-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
       - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
     ports:
       - "18800:18789"
@@ -57,7 +57,7 @@ services:
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.openclaw-bots/fitness-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
       - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
     stdin_open: true
     tty: true
@@ -73,7 +73,7 @@ services:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.openclaw-bots/cb-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
       - ~/cb-workspace:/home/node/.openclaw/workspace:rw
     ports:
       - "18801:18789"
@@ -88,7 +88,7 @@ services:
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.openclaw-bots/cb-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
       - ~/cb-workspace:/home/node/.openclaw/workspace:rw
     stdin_open: true
     tty: true
@@ -104,7 +104,7 @@ services:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.openclaw-bots/general-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
       - ~/general-workspace:/home/node/.openclaw/workspace:rw
     ports:
       - "18802:18789"
@@ -119,7 +119,7 @@ services:
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.openclaw-bots/general-bot:/home/node/.openclaw:rw
+      - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
       - ~/general-workspace:/home/node/.openclaw/workspace:rw
     stdin_open: true
     tty: true

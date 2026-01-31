@@ -13,7 +13,7 @@ Create a new isolated bot named `$ARGUMENTS`.
 ## Context
 
 - Docker compose file location: `/home/gbilton/clawdpods/docker-compose.yml`
-- Existing bots: !`ls -1 ~/.openclaw-bots/ 2>/dev/null || echo "None"`
+- Existing bots: !`ls -1 ~/.clawdpods/ 2>/dev/null || echo "None"`
 - Last used port: !`grep -oP '"\K[0-9]+(?=:18789")' /home/gbilton/clawdpods/docker-compose.yml 2>/dev/null | sort -n | tail -1 || echo "18799"`
 
 ## Steps
@@ -22,7 +22,7 @@ Create a new isolated bot named `$ARGUMENTS`.
 
 2. **Create directories**:
    ```bash
-   mkdir -p ~/.openclaw-bots/$ARGUMENTS
+   mkdir -p ~/.clawdpods/$ARGUMENTS
    mkdir -p ~/$ARGUMENTS-workspace
    ```
 
@@ -37,7 +37,7 @@ Create a new isolated bot named `$ARGUMENTS`.
          HOME: /home/node
          TERM: xterm-256color
        volumes:
-         - ~/.openclaw-bots/$ARGUMENTS:/home/node/.openclaw:rw
+         - ~/.clawdpods/$ARGUMENTS:/home/node/.openclaw:rw
          - ~/$ARGUMENTS-workspace:/home/node/.openclaw/workspace:rw
        ports:
          - "<next-port>:18789"
@@ -52,7 +52,7 @@ Create a new isolated bot named `$ARGUMENTS`.
          TERM: xterm-256color
          BROWSER: echo
        volumes:
-         - ~/.openclaw-bots/$ARGUMENTS:/home/node/.openclaw:rw
+         - ~/.clawdpods/$ARGUMENTS:/home/node/.openclaw:rw
          - ~/$ARGUMENTS-workspace:/home/node/.openclaw/workspace:rw
        stdin_open: true
        tty: true
