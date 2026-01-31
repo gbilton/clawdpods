@@ -5,11 +5,7 @@ Run multiple isolated [OpenClaw](https://github.com/openclaw/openclaw) bots in D
 ## Quick Start
 
 ```bash
-# 1. Build base image
-git clone https://github.com/openclaw/openclaw.git ~/openclaw-src
-cd ~/openclaw-src && docker build -t openclaw:local .
-
-# 2. Build extended image (adds gemini-cli + claude-code)
+# 1. Build image
 cd ~/clawdpods && docker build -t openclaw:local .
 
 # 3. Onboard a bot (interactive OAuth)
