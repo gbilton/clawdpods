@@ -1,0 +1,128 @@
+services:
+  father-bot:
+    image: openclaw:local
+    container_name: father-bot
+    restart: unless-stopped
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+    volumes:
+      - ~/.openclaw-bots/father-bot:/home/node/.openclaw:rw
+      - ~/clawdpods:/home/node/.openclaw/workspace:rw
+      - ~/.openclaw-bots:/home/node/bot-configs:rw
+      - ~:/home/node/host-home:rw
+    ports:
+      - "18799:18789"
+    init: true
+    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+
+  father-bot-cli:
+    image: openclaw:local
+    container_name: father-bot-cli
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+    volumes:
+      - ~/.openclaw-bots/father-bot:/home/node/.openclaw:rw
+      - ~/clawdpods:/home/node/.openclaw/workspace:rw
+      - ~/.openclaw-bots:/home/node/bot-configs:rw
+      - ~:/home/node/host-home:rw
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]
+    profiles: ["cli"]
+
+  fitness-bot:
+    image: openclaw:local
+    container_name: fitness-bot
+    restart: unless-stopped
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+    volumes:
+      - ~/.openclaw-bots/fitness-bot:/home/node/.openclaw:rw
+      - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
+    ports:
+      - "18800:18789"
+    init: true
+    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+
+  fitness-bot-cli:
+    image: openclaw:local
+    container_name: fitness-bot-cli
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+    volumes:
+      - ~/.openclaw-bots/fitness-bot:/home/node/.openclaw:rw
+      - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]
+    profiles: ["cli"]
+
+  cb-bot:
+    image: openclaw:local
+    container_name: cb-bot
+    restart: unless-stopped
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+    volumes:
+      - ~/.openclaw-bots/cb-bot:/home/node/.openclaw:rw
+      - ~/cb-workspace:/home/node/.openclaw/workspace:rw
+    ports:
+      - "18801:18789"
+    init: true
+    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+
+  cb-bot-cli:
+    image: openclaw:local
+    container_name: cb-bot-cli
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+    volumes:
+      - ~/.openclaw-bots/cb-bot:/home/node/.openclaw:rw
+      - ~/cb-workspace:/home/node/.openclaw/workspace:rw
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]
+    profiles: ["cli"]
+
+  general-bot:
+    image: openclaw:local
+    container_name: general-bot
+    restart: unless-stopped
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+    volumes:
+      - ~/.openclaw-bots/general-bot:/home/node/.openclaw:rw
+      - ~/general-workspace:/home/node/.openclaw/workspace:rw
+    ports:
+      - "18802:18789"
+    init: true
+    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+
+  general-bot-cli:
+    image: openclaw:local
+    container_name: general-bot-cli
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+    volumes:
+      - ~/.openclaw-bots/general-bot:/home/node/.openclaw:rw
+      - ~/general-workspace:/home/node/.openclaw/workspace:rw
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]
+    profiles: ["cli"]
