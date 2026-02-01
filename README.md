@@ -24,8 +24,9 @@ Each bot consists of two Docker services:
 │  ~/example-bot-workspace/  → Bot's working directory    │
 │                                                         │
 │  ┌─────────────────┐  ┌─────────────────┐              │
-│  │  father-bot     │  │  example-bot    │              │
-│  │  :18799         │  │  :18810         │              │
+│  ┌─────────────────┐  ┌─────────────────┐              │
+│  │  father-bot     │  │  your-bot       │              │
+│  │  :18799         │  │  :18800+        │              │
 │  └─────────────────┘  └─────────────────┘              │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -69,7 +70,7 @@ docker compose run --rm example-bot-cli pairing approve telegram <CODE>
 | Bot | Port | Purpose |
 |-----|------|---------|
 | `father-bot` | 18799 | Privileged bot that can create new bots via `/new-bot` |
-| `example-bot` | 18810 | Template bot - copy this pattern for your own |
+| `example-bot` | 18810 | Template (commented out) - uncomment or copy for your own bots |
 
 ## Commands
 

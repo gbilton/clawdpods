@@ -54,50 +54,50 @@ services:
   # =============================================================================
   # EXAMPLE-BOT - Template for creating your own bots
   # =============================================================================
-  # Copy this pattern for additional bots. Each bot needs:
+  # Uncomment and modify this template to add your own bots. Each bot needs:
   # - Unique container name
   # - Unique port mapping (increment the host port)
   # - Own config directory (~/.clawdpods/<name>/)
   # - Own workspace directory (~/<name>-workspace/)
-
-  example-bot:
-    image: openclaw:local
-    container_name: example-bot
-    restart: unless-stopped
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-    volumes:
-      # Bot's OpenClaw config (created during onboarding)
-      - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
-      # Bot's workspace directory
-      - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
-      # AI credentials (read-only) - optional, remove if not using these CLIs
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-      # Optional: mount SSH keys for git operations
-      # - ~/.ssh/id_ed25519:/home/node/.ssh/id_ed25519:ro
-    ports:
-      - "18810:18789"
-    init: true
-    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
-
-  example-bot-cli:
-    image: openclaw:local
-    container_name: example-bot-cli
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      BROWSER: echo
-    volumes:
-      - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
-      - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-    stdin_open: true
-    tty: true
-    init: true
-    entrypoint: ["node", "dist/index.js"]
-    profiles: ["cli"]
+  #
+  # example-bot:
+  #   image: openclaw:local
+  #   container_name: example-bot
+  #   restart: unless-stopped
+  #   user: "1000:1000"
+  #   environment:
+  #     HOME: /home/node
+  #     TERM: xterm-256color
+  #   volumes:
+  #     # Bot's OpenClaw config (created during onboarding)
+  #     - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
+  #     # Bot's workspace directory
+  #     - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
+  #     # AI credentials (read-only) - optional, remove if not using these CLIs
+  #     - ~/.gemini:/home/node/.gemini:ro
+  #     - ~/.claude:/home/node/.claude:ro
+  #     # Optional: mount SSH keys for git operations
+  #     # - ~/.ssh/id_ed25519:/home/node/.ssh/id_ed25519:ro
+  #   ports:
+  #     - "18810:18789"
+  #   init: true
+  #   command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+  #
+  # example-bot-cli:
+  #   image: openclaw:local
+  #   container_name: example-bot-cli
+  #   user: "1000:1000"
+  #   environment:
+  #     HOME: /home/node
+  #     TERM: xterm-256color
+  #     BROWSER: echo
+  #   volumes:
+  #     - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
+  #     - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
+  #     - ~/.gemini:/home/node/.gemini:ro
+  #     - ~/.claude:/home/node/.claude:ro
+  #   stdin_open: true
+  #   tty: true
+  #   init: true
+  #   entrypoint: ["node", "dist/index.js"]
+  #   profiles: ["cli"]
