@@ -12,6 +12,8 @@ services:
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
       - ~/.clawdpods:/home/node/bot-configs:rw
       - ~:/home/node/host-home:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     ports:
       - "18799:18789"
     init: true
@@ -30,6 +32,8 @@ services:
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
       - ~/.clawdpods:/home/node/bot-configs:rw
       - ~:/home/node/host-home:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     stdin_open: true
     tty: true
     init: true
@@ -48,6 +52,8 @@ services:
       - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
       - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
       - ~/.ssh/ueudes_bot:/home/node/.ssh/id_ed25519:ro
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     ports:
       - "18800:18789"
     init: true
@@ -64,6 +70,8 @@ services:
     volumes:
       - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
       - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     stdin_open: true
     tty: true
     init: true
@@ -81,6 +89,8 @@ services:
     volumes:
       - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
       - ~/cb-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     ports:
       - "18801:18789"
     init: true
@@ -97,6 +107,8 @@ services:
     volumes:
       - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
       - ~/cb-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     stdin_open: true
     tty: true
     init: true
@@ -114,6 +126,8 @@ services:
     volumes:
       - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
       - ~/general-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     ports:
       - "18802:18789"
     init: true
@@ -130,6 +144,8 @@ services:
     volumes:
       - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
       - ~/general-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.gemini:/home/node/.gemini:ro
+      - ~/.claude:/home/node/.claude:ro
     stdin_open: true
     tty: true
     init: true
