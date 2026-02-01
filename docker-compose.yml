@@ -3,6 +3,7 @@ services:
     image: openclaw:local
     container_name: father-bot
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -19,6 +20,7 @@ services:
   father-bot-cli:
     image: openclaw:local
     container_name: father-bot-cli
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -38,6 +40,7 @@ services:
     image: openclaw:local
     container_name: fitness-bot
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -52,6 +55,7 @@ services:
   fitness-bot-cli:
     image: openclaw:local
     container_name: fitness-bot-cli
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -69,6 +73,7 @@ services:
     image: openclaw:local
     container_name: cb-bot
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -83,6 +88,7 @@ services:
   cb-bot-cli:
     image: openclaw:local
     container_name: cb-bot-cli
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -100,6 +106,7 @@ services:
     image: openclaw:local
     container_name: general-bot
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -114,6 +121,7 @@ services:
   general-bot-cli:
     image: openclaw:local
     container_name: general-bot-cli
+    user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
