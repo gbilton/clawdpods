@@ -1,5 +1,6 @@
 services:
   father-bot:
+    build: .
     image: openclaw:local
     container_name: father-bot
     restart: unless-stopped
@@ -20,6 +21,7 @@ services:
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
   father-bot-cli:
+    build: .
     image: openclaw:local
     container_name: father-bot-cli
     user: "1000:1000"
@@ -41,6 +43,7 @@ services:
     profiles: ["cli"]
 
   fitness-bot:
+    build: .
     image: openclaw:local
     container_name: fitness-bot
     restart: unless-stopped
@@ -60,6 +63,7 @@ services:
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
   fitness-bot-cli:
+    build: .
     image: openclaw:local
     container_name: fitness-bot-cli
     user: "1000:1000"
@@ -79,6 +83,7 @@ services:
     profiles: ["cli"]
 
   cb-bot:
+    build: .
     image: openclaw:local
     container_name: cb-bot
     restart: unless-stopped
@@ -97,6 +102,7 @@ services:
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
   cb-bot-cli:
+    build: .
     image: openclaw:local
     container_name: cb-bot-cli
     user: "1000:1000"
@@ -116,6 +122,7 @@ services:
     profiles: ["cli"]
 
   general-bot:
+    build: .
     image: openclaw:local
     container_name: general-bot
     restart: unless-stopped
@@ -134,6 +141,7 @@ services:
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
   general-bot-cli:
+    build: .
     image: openclaw:local
     container_name: general-bot-cli
     user: "1000:1000"
