@@ -1,6 +1,11 @@
 services:
+  # =============================================================================
+  # FATHER-BOT - Privileged bot that can manage this project and create new bots
+  # =============================================================================
+  # This bot has extra mounts to access the host home directory and bot configs.
+  # Use the /new-bot skill to create additional bots.
+
   father-bot:
-    build: .
     image: openclaw:local
     container_name: father-bot
     restart: unless-stopped
@@ -9,10 +14,15 @@ services:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
+      # Bot's OpenClaw config directory
       - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
+      # Workspace - this project itself, so father-bot can edit docker-compose.yml
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
+      # Access to all bot configs (for management)
       - ~/.clawdpods:/home/node/bot-configs:rw
+      # Access to host home (for creating workspace directories)
       - ~:/home/node/host-home:rw
+      # AI credentials (read-only)
       - ~/.gemini:/home/node/.gemini:ro
       - ~/.claude:/home/node/.claude:ro
     ports:
@@ -21,14 +31,13 @@ services:
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
   father-bot-cli:
-    build: .
     image: openclaw:local
     container_name: father-bot-cli
     user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      BROWSER: echo
+      BROWSER: echo  # Prints OAuth URLs instead of opening browser
     volumes:
       - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
       - ~/clawdpods:/home/node/.openclaw/workspace:rw
@@ -42,116 +51,49 @@ services:
     entrypoint: ["node", "dist/index.js"]
     profiles: ["cli"]
 
-  fitness-bot:
-    build: .
+  # =============================================================================
+  # EXAMPLE-BOT - Template for creating your own bots
+  # =============================================================================
+  # Copy this pattern for additional bots. Each bot needs:
+  # - Unique container name
+  # - Unique port mapping (increment the host port)
+  # - Own config directory (~/.clawdpods/<name>/)
+  # - Own workspace directory (~/<name>-workspace/)
+
+  example-bot:
     image: openclaw:local
-    container_name: fitness-bot
+    container_name: example-bot
     restart: unless-stopped
     user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
     volumes:
-      - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
-      - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.ssh/ueudes_bot:/home/node/.ssh/id_ed25519:ro
+      # Bot's OpenClaw config (created during onboarding)
+      - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
+      # Bot's workspace directory
+      - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
+      # AI credentials (read-only) - optional, remove if not using these CLIs
       - ~/.gemini:/home/node/.gemini:ro
       - ~/.claude:/home/node/.claude:ro
+      # Optional: mount SSH keys for git operations
+      # - ~/.ssh/id_ed25519:/home/node/.ssh/id_ed25519:ro
     ports:
-      - "18800:18789"
+      - "18810:18789"
     init: true
     command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
 
-  fitness-bot-cli:
-    build: .
+  example-bot-cli:
     image: openclaw:local
-    container_name: fitness-bot-cli
+    container_name: example-bot-cli
     user: "1000:1000"
     environment:
       HOME: /home/node
       TERM: xterm-256color
       BROWSER: echo
     volumes:
-      - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
-      - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-    stdin_open: true
-    tty: true
-    init: true
-    entrypoint: ["node", "dist/index.js"]
-    profiles: ["cli"]
-
-  cb-bot:
-    build: .
-    image: openclaw:local
-    container_name: cb-bot
-    restart: unless-stopped
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-    volumes:
-      - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
-      - ~/cb-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-    ports:
-      - "18801:18789"
-    init: true
-    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
-
-  cb-bot-cli:
-    build: .
-    image: openclaw:local
-    container_name: cb-bot-cli
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      BROWSER: echo
-    volumes:
-      - ~/.clawdpods/cb-bot:/home/node/.openclaw:rw
-      - ~/cb-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-    stdin_open: true
-    tty: true
-    init: true
-    entrypoint: ["node", "dist/index.js"]
-    profiles: ["cli"]
-
-  general-bot:
-    build: .
-    image: openclaw:local
-    container_name: general-bot
-    restart: unless-stopped
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-    volumes:
-      - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
-      - ~/general-workspace:/home/node/.openclaw/workspace:rw
-      - ~/.gemini:/home/node/.gemini:ro
-      - ~/.claude:/home/node/.claude:ro
-    ports:
-      - "18802:18789"
-    init: true
-    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
-
-  general-bot-cli:
-    build: .
-    image: openclaw:local
-    container_name: general-bot-cli
-    user: "1000:1000"
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      BROWSER: echo
-    volumes:
-      - ~/.clawdpods/general-bot:/home/node/.openclaw:rw
-      - ~/general-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
+      - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
       - ~/.gemini:/home/node/.gemini:ro
       - ~/.claude:/home/node/.claude:ro
     stdin_open: true

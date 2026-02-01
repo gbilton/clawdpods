@@ -1,1 +1,4 @@
 *.swp
+
+# Personal bot configurations (merged automatically by docker compose)
+docker-compose.override.yml
