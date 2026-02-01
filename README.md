@@ -8,6 +8,9 @@ Run multiple isolated [OpenClaw](https://github.com/openclaw/openclaw) bots in D
 # 1. Build image
 cd ~/clawdpods && docker build -t openclaw:local .
 
+# 2. Create directories (must exist before docker compose)
+mkdir -p ~/.clawdpods/fitness-bot ~/fitness-workspace
+
 # 3. Onboard a bot (interactive OAuth)
 docker compose run --rm -it fitness-bot-cli onboard
 
