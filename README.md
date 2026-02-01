@@ -21,9 +21,10 @@ Each bot consists of two Docker services:
 │  ├── father-bot/     → Bot configs (OAuth tokens, etc.) │
 │  └── example-bot/                                       │
 │                                                         │
-│  ~/example-bot-workspace/  → Bot's working directory    │
+│  ~/clawdpods-workspaces/                                │
+│  ├── father-bot/     → Bot's working directory          │
+│  └── example-bot/                                       │
 │                                                         │
-│  ┌─────────────────┐  ┌─────────────────┐              │
 │  ┌─────────────────┐  ┌─────────────────┐              │
 │  │  father-bot     │  │  your-bot       │              │
 │  │  :18799         │  │  :18800+        │              │
@@ -53,7 +54,7 @@ cd clawdpods
 docker build -t openclaw:local .
 
 # 2. Create directories (required - must exist before running containers)
-mkdir -p ~/.clawdpods/father-bot
+mkdir -p ~/.clawdpods/father-bot ~/clawdpods-workspaces/father-bot
 
 # 3. Onboard the bot (interactive OAuth flow)
 docker compose run --rm -it father-bot-cli onboard
@@ -99,7 +100,7 @@ If you have father-bot running, send it `/new-bot <name>` and it will create the
 
 1. Create directories:
    ```bash
-   mkdir -p ~/.clawdpods/<bot-name> ~/<bot-name>-workspace
+   mkdir -p ~/.clawdpods/<bot-name> ~/clawdpods-workspaces/<bot-name>
    ```
 
 2. Copy the `example-bot` service block in `docker-compose.yml` and modify:
@@ -133,7 +134,7 @@ Docker Compose automatically merges this with `docker-compose.yml`. Your persona
 | Mount | Purpose |
 |-------|---------|
 | `~/.clawdpods/<bot>/` → `/home/node/.openclaw` | Bot's config directory (OAuth tokens, settings) |
-| `~/<bot>-workspace/` → `/home/node/.openclaw/workspace` | Bot's working directory |
+| `~/clawdpods-workspaces/<bot>/` → `/home/node/.openclaw/workspace` | Bot's working directory |
 | `~/.gemini/` → `/home/node/.gemini` | Gemini CLI credentials (optional) |
 | `~/.claude/` → `/home/node/.claude` | Claude Code credentials (optional) |
 | `~/.ssh/key` → `/home/node/.ssh/id_ed25519` | SSH key for git operations (optional) |
@@ -146,7 +147,7 @@ Bot directories must exist before running containers. Docker creates missing dir
 
 When using `/new-bot`, directories are created automatically. For manual setup (including father-bot), create them first:
 ```bash
-mkdir -p ~/.clawdpods/<bot-name>
+mkdir -p ~/.clawdpods/<bot-name> ~/clawdpods-workspaces/<bot-name>
 ```
 
 **OAuth flow shows URL but doesn't open browser**

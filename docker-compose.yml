@@ -2,8 +2,8 @@ services:
   # =============================================================================
   # FATHER-BOT - Privileged bot that can manage this project and create new bots
   # =============================================================================
-  # This bot has extra mounts to access the host home directory and bot configs.
-  # Use the /new-bot skill to create additional bots.
+  # This bot has extra mounts for bot management (clawdpods repo, bot configs,
+  # and workspaces directory). Use the /new-bot skill to create additional bots.
 
   father-bot:
     image: openclaw:local
@@ -16,12 +16,14 @@ services:
     volumes:
       # Bot's OpenClaw config directory
       - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
-      # Workspace - this project itself, so father-bot can edit docker-compose.yml
-      - ~/clawdpods:/home/node/.openclaw/workspace:rw
+      # Bot's own workspace (isolated)
+      - ~/clawdpods-workspaces/father-bot:/home/node/.openclaw/workspace:rw
+      # This repo (for editing docker-compose files)
+      - ~/clawdpods:/home/node/clawdpods:rw
       # Access to all bot configs (for management)
       - ~/.clawdpods:/home/node/bot-configs:rw
-      # Access to host home (for creating workspace directories)
-      - ~:/home/node/host-home:rw
+      # Parent directory for new bot workspaces
+      - ~/clawdpods-workspaces:/home/node/clawdpods-workspaces:rw
       # AI credentials (read-only)
       - ~/.gemini:/home/node/.gemini:ro
       - ~/.claude:/home/node/.claude:ro
@@ -40,9 +42,10 @@ services:
       BROWSER: echo  # Prints OAuth URLs instead of opening browser
     volumes:
       - ~/.clawdpods/father-bot:/home/node/.openclaw:rw
-      - ~/clawdpods:/home/node/.openclaw/workspace:rw
+      - ~/clawdpods-workspaces/father-bot:/home/node/.openclaw/workspace:rw
+      - ~/clawdpods:/home/node/clawdpods:rw
       - ~/.clawdpods:/home/node/bot-configs:rw
-      - ~:/home/node/host-home:rw
+      - ~/clawdpods-workspaces:/home/node/clawdpods-workspaces:rw
       - ~/.gemini:/home/node/.gemini:ro
       - ~/.claude:/home/node/.claude:ro
     stdin_open: true
@@ -58,7 +61,7 @@ services:
   # - Unique container name
   # - Unique port mapping (increment the host port)
   # - Own config directory (~/.clawdpods/<name>/)
-  # - Own workspace directory (~/<name>-workspace/)
+  # - Own workspace directory (~/clawdpods-workspaces/<name>/)
   #
   # example-bot:
   #   image: openclaw:local
@@ -72,7 +75,7 @@ services:
   #     # Bot's OpenClaw config (created during onboarding)
   #     - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
   #     # Bot's workspace directory
-  #     - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
+  #     - ~/clawdpods-workspaces/example-bot:/home/node/.openclaw/workspace:rw
   #     # AI credentials (read-only) - optional, remove if not using these CLIs
   #     - ~/.gemini:/home/node/.gemini:ro
   #     - ~/.claude:/home/node/.claude:ro
@@ -93,7 +96,7 @@ services:
   #     BROWSER: echo
   #   volumes:
   #     - ~/.clawdpods/example-bot:/home/node/.openclaw:rw
-  #     - ~/example-bot-workspace:/home/node/.openclaw/workspace:rw
+  #     - ~/clawdpods-workspaces/example-bot:/home/node/.openclaw/workspace:rw
   #     - ~/.gemini:/home/node/.gemini:ro
   #     - ~/.claude:/home/node/.claude:ro
   #   stdin_open: true
