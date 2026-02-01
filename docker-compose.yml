@@ -46,7 +46,8 @@ services:
       TERM: xterm-256color
     volumes:
       - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
-      - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
+      - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
+      - ~/.ssh/ueudes_bot:/home/node/.ssh/id_ed25519:ro
     ports:
       - "18800:18789"
     init: true
@@ -62,7 +63,7 @@ services:
       BROWSER: echo
     volumes:
       - ~/.clawdpods/fitness-bot:/home/node/.openclaw:rw
-      - ~/fitness-workspace:/home/node/.openclaw/workspace:rw
+      - ~/fitness-bot-workspace:/home/node/.openclaw/workspace:rw
     stdin_open: true
     tty: true
     init: true

@@ -16,6 +16,11 @@ RUN pnpm ui:build
 # Final image
 FROM node:22-bookworm-slim
 
+# Install curl and git 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends git curl \
+ && rm -rf /var/lib/apt/lists/*
+
 RUN corepack enable
 RUN npm install -g @google/gemini-cli @anthropic-ai/claude-code
 
