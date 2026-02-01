@@ -52,17 +52,17 @@ git clone https://github.com/gbilton/clawdpods.git
 cd clawdpods
 docker build -t openclaw:local .
 
-# 2. Create directories for your bot
-mkdir -p ~/.clawdpods/example-bot ~/example-bot-workspace
+# 2. Create directories (required - must exist before running containers)
+mkdir -p ~/.clawdpods/father-bot
 
 # 3. Onboard the bot (interactive OAuth flow)
-docker compose run --rm -it example-bot-cli onboard
+docker compose run --rm -it father-bot-cli onboard
 
 # 4. Start the bot
-docker compose up -d example-bot
+docker compose up -d father-bot
 
 # 5. Pair with Telegram (when prompted)
-docker compose run --rm example-bot-cli pairing approve telegram <CODE>
+docker compose run --rm father-bot-cli pairing approve telegram <CODE>
 ```
 
 ## Included Bots
@@ -142,9 +142,11 @@ Docker Compose automatically merges this with `docker-compose.yml`. Your persona
 
 **"Permission denied" errors**
 
-The container runs as UID 1000. Ensure your host directories are owned by your user:
+Bot directories must exist before running containers. Docker creates missing directories as root, causing permission issues.
+
+When using `/new-bot`, directories are created automatically. For manual setup (including father-bot), create them first:
 ```bash
-sudo chown -R $USER:$USER ~/.clawdpods ~/example-bot-workspace
+mkdir -p ~/.clawdpods/<bot-name>
 ```
 
 **OAuth flow shows URL but doesn't open browser**
