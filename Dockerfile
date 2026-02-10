@@ -16,9 +16,13 @@ RUN pnpm ui:build
 # Final image
 FROM node:22-bookworm-slim
 
-# Install curl, git, and ssh
+# Install curl, git, ssh and cron
 RUN apt-get update \
- && apt-get install -y --no-install-recommends git curl openssh-client \
+ && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    openssh-client \
+    cron \
  && rm -rf /var/lib/apt/lists/*
 
 RUN corepack enable
